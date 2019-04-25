@@ -18,11 +18,11 @@ export default class Index extends React.Component{
         }
     }
 
-    entrarOnClick(){
+    async entrarOnClick(){
 
        let u = new UsuarioModel(null, this.state.email, this.state.senha);
-
-       if (!u.validarUsuario())
+       let ok = await u.validarUsuario();
+       if (!ok)
        {
             this.setState({
                 msg: "Dados inválidos"

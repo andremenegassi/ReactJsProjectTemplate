@@ -1,6 +1,7 @@
 import React from 'react';
 import MainLayout from '../../share/MainLayout';
-//import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import ProdutoModel from '../../../models/Produto.model';
 
 export default class Index extends React.Component {
 
@@ -13,39 +14,38 @@ export default class Index extends React.Component {
         }
     }
 
-    componentDidMount() {
-        
-      
+    async componentDidMount() {
 
+       let p = new ProdutoModel();
+      
+        this.setState({
+            dados :  await p.obterTodos()
+        });
+    
+
+        /*
+      
         var config = {
             method: "GET",
             headers: {
-                "Content-Type": "application/json; charset=utf-8"
+                "Content-Type": "application/json; charset=utf-8",
+                "Authorization": "Bearer " + localStorage.getItem("accessToken")
             }
         };
  
-        fetch("https://reqres.in/api/unknown", config)
+        fetch("http://localhost:60491/api/produto", config)
         .then(function(r){
             return r.json();
         })
         .then(function(rJson){
             this.setState({
-                dados : rJson.data
+                dados : rJson
             });
           
         }.bind(this));
-    
+        */
     }
 
-    /*teste(){
-
-        this.props.dispatch({
-            type:"ADD",
-            payload: 1
-        });
-
-        console.log(this.props);
-    }*/
 
     adicionar(item)
     {
@@ -62,9 +62,9 @@ export default class Index extends React.Component {
             <div style={{backgroundColor:item.color}}>
                 {item.id}
                 <br />
-                {item.name}
+                {item.nome}
                 <br />
-                <a onClick={this.adicionar.bind(this, item)}> + adicionar</a>
+                R${item.preco}
             </div>);
         })
 
@@ -73,20 +73,11 @@ export default class Index extends React.Component {
             <div>
                 <h1 className="titulo">Home Index</h1>
                 {items}
-                {/*<h1>{this.props.conta}</h1>
+                <h1>{this.props.conta}</h1>
 
-                <input type="button" value="ok" onClick={this.teste.bind(this)} />*/}
             </div>
 
         return <MainLayout>{html}</MainLayout>;
         
     }
 }
-
-/*
-const mapStateToProps = (state) => {
-    return {conta: state.conta}
- };
-
-export default connect(mapStateToProps)(Index);*/
-

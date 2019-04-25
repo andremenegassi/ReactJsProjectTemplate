@@ -2,8 +2,6 @@ import React  from "react";
 import MainLayoutHeader from "./MainLayoutHeader";
 import MainMenu from "./MainMenu";
 
-import { connect } from 'react-redux';
-
 
 export default class MainLayout extends React.Component
 {
